@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI & Ideal Weight Calculator</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: url('https://res.cloudinary.com/grohealth/image/upload/$wpsize_!_cld_full!,w_2560,h_1707,c_scale/v1588092257/iStock-528072248-scaled.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .calculator {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .calculator h1 {
+      font-size: 28px;
+      color: #6a1b9a;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .input-group label {
+      font-size: 16px;
+      font-style: italic;
+      color: #6a1b9a;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #6a1b9a;
+      border-radius: 8px;
+      font-size: 14px;
+      box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #6a1b9a;
+      color: #fff;
+      font-size: 16px;
+      font-style: italic;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #501072;
+      box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    #results {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #6a1b9a;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h1>BMI & Ideal Weight Calculator</h1>
+    <form id="bmiForm">
+      <div class="input-group">
+        <label for="height">Height (cm)</label>
+        <input type="number" id="height" placeholder="Enter your height" required>
+      </div>
+      <div class="input-group">
+        <label for="weight">Weight (kg)</label>
+        <input type="number" id="weight" placeholder="Enter your weight" required>
+      </div>
+      <button type="button" id="calculateButton">Calculate</button>
+    </form>
+    <div id="results">
+      <p id="bmiResult"></p>
+      <p id="idealWeight"></p>
+    </div>
+  </div>
+  <script>
+    document.getElementById("calculateButton").addEventListener("click", () => {
+      const height = parseFloat(document.getElementById("height").value) / 100; // Convert cm to meters
+      const weight = parseFloat(document.getElementById("weight").value);
+
+      if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+        alert("Please enter valid height and weight.");
+        return;
+      }
+
+      // Calculate BMI
+      const bmi = weight / (height * height);
+
+      // Calculate Ideal Weight (based on BMI range 18.5–24.9)
+      const idealWeightMin = 18.5 * (height * height);
+      const idealWeightMax = 24.9 * (height * height);
+
+      // Display Results
+      document.getElementById("bmiResult").textContent = `Your BMI is: ${bmi.toFixed(2)}`;
+      document.getElementById("idealWeight").textContent = `Ideal Weight Range: ${idealWeightMin.toFixed(1)} kg - ${idealWeightMax.toFixed(1)} kg`;
+    });
+  </script>
+</body>
+</html>
